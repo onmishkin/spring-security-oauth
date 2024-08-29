@@ -487,7 +487,7 @@
             </includes>
             <forkCount>3</forkCount>
             <reuseForks>true</reuseForks>
-            <argLine>-Xmx1024m</argLine>
+            <argLine>-Xmx1024m --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.net.www.protocol.http=ALL-UNNAMED --add-opens java.base/sun.net.www.protocol.https=ALL-UNNAMED</argLine>
           </configuration>
         </plugin>
 	  </plugins>
