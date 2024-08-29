@@ -18,7 +18,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>3.3.2</version>
 			</plugin>
 			<plugin>
 				<!--skip deploy (this is just a test module) -->
@@ -96,8 +96,8 @@
 		</dependency>
 	</dependencies>
 
-	<!-- <profiles> <profile> <id>gae</id> <dependencies> <dependency> <groupId>com.google.appengine</groupId> 
-		<artifactId>appengine-api-1.0-sdk</artifactId> <version>1.2.2</version> </dependency> 
+	<!-- <profiles> <profile> <id>gae</id> <dependencies> <dependency> <groupId>com.google.appengine</groupId>
+		<artifactId>appengine-api-1.0-sdk</artifactId> <version>1.2.2</version> </dependency>
 		</dependencies> </profile> </profiles> -->
 
 </project>
