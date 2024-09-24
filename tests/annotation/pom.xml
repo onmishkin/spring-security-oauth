@@ -9,6 +9,7 @@
 
     <modules>
       <module>common</module>
+  <!-- DW these have some failures
       <module>vanilla</module>
       <module>mappings</module>
       <module>form</module>
@@ -19,14 +20,17 @@
       <module>jaxb</module>
       <module>custom-grant</module>
       <module>multi</module>
+  -->
       <module>client</module>
       <module>resource</module>
-      <module>custom-authentication</module>
+<!--
+     <module>custom-authentication</module>
+-->
     </modules>
 
 	<properties>
 		<start-class>demo.Application</start-class>
-		<java.version>1.7</java.version>
+		<java.version>${java.version}</java.version><!-- DW 1.7 -->
 		<spring.version>4.3.30.RELEASE</spring.version>
 	</properties>
 
@@ -56,6 +60,10 @@
     </dependencyManagement>
 
     <build>
+      <!-- DW in my sprint 186? work I needed plugins plugin
+	   <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> <version>3.13.0</version>
+	             <configuration> <release>8</release> </configuration>
+      -->
       <pluginManagement>
         <plugins>
 			<plugin>

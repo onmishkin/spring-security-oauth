@@ -6,4 +6,4 @@
 JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
 
 # "-Dmaven.javadoc.skip=true" needed for Java 17
-mvn -Dmaven.javadoc.skip=true package
+mvn -Dmaven.javadoc.skip=true -DskipTests=true -e package

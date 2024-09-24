@@ -29,7 +29,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.modules.junit4.legacy.PowerMockRunner;
 
 /**
  * Base class for testing Jackson serialization and deserialization of {@link OAuth2AccessToken}.
