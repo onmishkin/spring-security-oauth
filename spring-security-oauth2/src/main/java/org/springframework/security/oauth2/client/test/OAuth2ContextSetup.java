@@ -26,8 +26,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.config.RequestConfig.Builder;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.protocol.HttpContext;
+//import org.apache.http.client.protocol.HttpClientContext;
+//import org.apache.http.protocol.HttpContext;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.internal.AssumptionViolatedException;
@@ -376,7 +376,10 @@ public class OAuth2ContextSetup extends TestWatchman {
 	}
 
 	private void setupConnectionFactory(OAuth2RestTemplate client) {
-		if (Boolean.getBoolean("http.components.enabled")
+	    /* DW
+[ERROR] /Users/dwhynacht/repos/spring-security-oauth/spring-security-oauth2/src/main/java/org/springframework/security/oauth2/client/test/OAuth2ContextSetup.java:[384,26] error: cannot access HttpContext
+[ERROR]   class file for org.apache.hc.core5.http.protocol.HttpContext not found
+	       if (Boolean.getBoolean("http.components.enabled")
 				&& ClassUtils.isPresent("org.apache.http.client.config.RequestConfig",
 						null)) {
 			client.setRequestFactory(new HttpComponentsClientHttpRequestFactory() {
@@ -396,7 +399,8 @@ public class OAuth2ContextSetup extends TestWatchman {
 			});
 		}
 		else {
-			client.setRequestFactory(new SimpleClientHttpRequestFactory() {
+	    */
+	    client.setRequestFactory(new SimpleClientHttpRequestFactory() {
 				@Override
 				protected void prepareConnection(HttpURLConnection connection,
 						String httpMethod) throws IOException {
@@ -404,7 +408,7 @@ public class OAuth2ContextSetup extends TestWatchman {
 					connection.setInstanceFollowRedirects(false);
 				}
 			});
-		}
+// DW		}
 	}
 
 	private OAuth2ProtectedResourceDetails creatResource(Object target,

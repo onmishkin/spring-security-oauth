@@ -2,8 +2,8 @@ package org.springframework.security.oauth.consumer.rememberme;
 
 import org.springframework.security.oauth.consumer.OAuthConsumerToken;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**

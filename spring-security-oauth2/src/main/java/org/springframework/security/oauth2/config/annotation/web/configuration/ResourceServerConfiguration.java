@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,9 @@ import org.springframework.core.Ordered;
 import org.springframework.security.authentication.AnonymousAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//DW
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+//DW import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpointHandlerMapping;
@@ -48,7 +50,7 @@ import org.springframework.util.ReflectionUtils;
  */
 @Configuration
 @Deprecated
-public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter implements Ordered {
+public class ResourceServerConfiguration {// DW extends WebSecurityConfigurerAdapter implements Ordered {
 
 	private int order = 3;
 
@@ -69,7 +71,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter im
 	@Autowired(required = false)
 	private AuthorizationServerEndpointsConfiguration endpoints;
 
-	@Override
+    //DW	@Override
 	public int getOrder() {
 		return order;
 	}
@@ -117,7 +119,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter im
 
 	}
 
-	@Override
+    //DW	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		ResourceServerSecurityConfigurer resources = new ResourceServerSecurityConfigurer();
 		ResourceServerTokenServices services = resolveTokenServices();
@@ -151,7 +153,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter im
 		http.apply(resources);
 		if (endpoints != null) {
 			// Assume we are in an Authorization Server
-			http.requestMatcher(new NotOAuthRequestMatcher(endpoints.oauth2EndpointHandlerMapping()));
+		    // DW			http.requestMatcher(new NotOAuthRequestMatcher(endpoints.oauth2EndpointHandlerMapping()));
 		}
 		for (ResourceServerConfigurer configurer : configurers) {
 			// Delegates can add authorizeRequests() here

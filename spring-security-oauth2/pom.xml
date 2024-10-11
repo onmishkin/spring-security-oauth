@@ -67,12 +67,13 @@
 	</build>
 
 	<dependencies>
-		<dependency>
+ 		<dependency>
+		  <groupId>jakarta.servlet</groupId>
+		  <artifactId>jakarta.servlet-api</artifactId>
+<!--
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<!-- In case we test with Spring 4 -->
-			<version>${servlet-api.version}</version>
-			<optional>true</optional>
+-->
 		</dependency>
 
 		<dependency>
@@ -177,12 +178,12 @@
             <optional>true</optional>
         </dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.13</version>
-            <optional>true</optional>
-		</dependency>
+	<dependency>
+	  <groupId>org.apache.httpcomponents</groupId>
+	  <artifactId>httpclient</artifactId>
+	  <version>4.5.13</version>
+          <optional>true</optional>
+	</dependency>
 
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>

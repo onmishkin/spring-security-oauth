@@ -21,8 +21,8 @@ import org.springframework.security.oauth.consumer.OAuthConsumerToken;
 import org.springframework.security.oauth.consumer.OAuthSecurityContext;
 import org.springframework.security.oauth.consumer.OAuthSecurityContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Stores the tokens in an HTTP session.

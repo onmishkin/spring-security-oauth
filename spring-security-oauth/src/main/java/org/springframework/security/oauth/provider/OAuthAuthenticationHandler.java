@@ -3,7 +3,7 @@ package org.springframework.security.oauth.provider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth.provider.token.OAuthAccessProviderToken;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Callback interface for handing authentication details that are used when an authenticated request for a protected resource is received.

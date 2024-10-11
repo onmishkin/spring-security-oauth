@@ -16,7 +16,7 @@
 
 package org.springframework.security.oauth.common.signature;
 
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+//import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 /**
  * Plain text signature method.
@@ -35,7 +35,7 @@ public class PlainTextSignatureMethod implements OAuthSignatureMethod {
   public static final String SIGNATURE_NAME = "PLAINTEXT";
 
   private final String secret;
-  private final PasswordEncoder encoder;
+  private final /* DW PasswordEncoder */ Object encoder;
   private final Object salt;
 
   /**
@@ -54,7 +54,7 @@ public class PlainTextSignatureMethod implements OAuthSignatureMethod {
    * @param encoder The password encoder, or null if none is to be used.
    * @param salt The salt for the secret, if any.
    */
-  public PlainTextSignatureMethod(String secret, PasswordEncoder encoder, Object salt) {
+  public PlainTextSignatureMethod(String secret, /* DW PasswordEncoder */ Object encoder, Object salt) {
     this.secret = secret;
     this.encoder = encoder;
     this.salt = salt;
@@ -87,6 +87,8 @@ public class PlainTextSignatureMethod implements OAuthSignatureMethod {
    * @throws InvalidSignatureException If the signature is not the same as the secret.
    */
   public void verify(String signatureBaseString, String signature) throws InvalidSignatureException {
+    throw new InvalidSignatureException("Not implemented");
+/*
     if (this.encoder != null) {
       if (!this.encoder.isPasswordValid(this.secret, signature, this.salt)) {
         throw new InvalidSignatureException("Invalid signature for signature method " + getName());
@@ -95,6 +97,7 @@ public class PlainTextSignatureMethod implements OAuthSignatureMethod {
     else if (!signature.equals(this.secret)) {
       throw new InvalidSignatureException("Invalid signature for signature method " + getName());
     }
+*/
   }
 
   /**

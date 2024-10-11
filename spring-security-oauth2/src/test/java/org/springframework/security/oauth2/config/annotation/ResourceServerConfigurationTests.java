@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 
-import javax.servlet.Filter;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.Filter;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
 import org.junit.Rule;

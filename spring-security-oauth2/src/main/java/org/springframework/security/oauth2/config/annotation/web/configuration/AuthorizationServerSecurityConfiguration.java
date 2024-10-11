@@ -21,7 +21,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+// DW import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configuration.ClientDetailsServiceConfiguration;
@@ -45,7 +46,7 @@ import java.util.List;
 @Order(0)
 @Import({ ClientDetailsServiceConfiguration.class, AuthorizationServerEndpointsConfiguration.class })
 @Deprecated
-public class AuthorizationServerSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class AuthorizationServerSecurityConfiguration { //DW extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private List<AuthorizationServerConfigurer> configurers = Collections.emptyList();
@@ -63,7 +64,7 @@ public class AuthorizationServerSecurityConfiguration extends WebSecurityConfigu
 		}
 	}
 
-	@Override
+    // DW	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// Over-riding to make sure this.disableLocalConfigureAuthenticationBldr = false
 		// This will ensure that when this configurer builds the AuthenticationManager it will not attempt
@@ -73,7 +74,7 @@ public class AuthorizationServerSecurityConfiguration extends WebSecurityConfigu
 		// composed of the ClientDetailsService (wired in this configuration) for authenticating 'clients' only.
 	}
 
-	@Override
+    //	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		AuthorizationServerSecurityConfigurer configurer = new AuthorizationServerSecurityConfigurer();
 		FrameworkEndpointHandlerMapping handlerMapping = endpoints.oauth2EndpointHandlerMapping();
@@ -88,6 +89,7 @@ public class AuthorizationServerSecurityConfiguration extends WebSecurityConfigu
 			endpoints.getEndpointsConfigurer().userDetailsService(userDetailsService);
 		}
 		// @formatter:off
+		/* DW figure out how to migrate these antMatchers...
 		http
         	.authorizeRequests()
             	.antMatchers(tokenEndpointPath).fullyAuthenticated()
@@ -100,6 +102,7 @@ public class AuthorizationServerSecurityConfiguration extends WebSecurityConfigu
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
 		// @formatter:on
 		http.setSharedObject(ClientDetailsService.class, clientDetailsService);
+		*/
 	}
 
 	protected void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {

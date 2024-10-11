@@ -17,6 +17,7 @@ package org.springframework.security.oauth2.client.http;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -77,13 +78,17 @@ public class OAuth2ErrorHandler implements ResponseErrorHandler {
 		this.errorHandler = errorHandler;
 	}
 
+	private boolean isClientError(HttpStatusCode code) {
+		return HttpStatus.Series.CLIENT_ERROR.equals(HttpStatus.Series.resolve(code.value()));
+	}
+
 	public boolean hasError(ClientHttpResponse response) throws IOException {
-		return HttpStatus.Series.CLIENT_ERROR.equals(response.getStatusCode().series())
+	    return isClientError(response.getStatusCode())
 				|| this.errorHandler.hasError(response);
 	}
 
 	public void handleError(final ClientHttpResponse response) throws IOException {
-		if (!HttpStatus.Series.CLIENT_ERROR.equals(response.getStatusCode().series())) {
+		if (!isClientError(response.getStatusCode())) {
 			// We should only care about 400 level errors. Ex: A 500 server error shouldn't
 			// be an oauth related error.
 			errorHandler.handleError(response);
@@ -93,7 +98,7 @@ public class OAuth2ErrorHandler implements ResponseErrorHandler {
 			ClientHttpResponse bufferedResponse = new ClientHttpResponse() {
 				private byte[] lazyBody;
 
-				public HttpStatus getStatusCode() throws IOException {
+				public HttpStatusCode getStatusCode() throws IOException {
 					return response.getStatusCode();
 				}
 

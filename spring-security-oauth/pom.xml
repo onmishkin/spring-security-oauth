@@ -124,11 +124,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<!-- In case we test with Spring 4 -->
-			<version>${servlet-api.version}</version>
-			<optional>true</optional>
+		  <groupId>jakarta.servlet</groupId>
+		  <artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 
 		<dependency>

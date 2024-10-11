@@ -87,7 +87,7 @@ public class JdbcApprovalStore implements ApprovalStore {
 	private boolean handleRevocationsAsExpiry = false;
 
 	public JdbcApprovalStore(DataSource dataSource) {
-		Assert.notNull(dataSource);
+	    Assert.notNull(dataSource, "datasource can not be null");
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

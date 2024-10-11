@@ -172,7 +172,7 @@ public class JwtAccessTokenConverter implements TokenEnhancer, AccessTokenConver
 	 * @param key the key to be used for signing JWTs.
 	 */
 	public void setSigningKey(String key) {
-		Assert.hasText(key);
+	    Assert.hasText(key, "invalid key");
 		key = key.trim();
 
 		this.signingKey = key;

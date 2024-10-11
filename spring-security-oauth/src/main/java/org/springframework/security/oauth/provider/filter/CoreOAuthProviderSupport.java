@@ -23,7 +23,7 @@ import org.springframework.security.oauth.common.OAuthConsumerParameter;
 import org.springframework.security.oauth.common.StringSplitUtils;
 import org.springframework.security.oauth.provider.OAuthProviderSupport;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.net.URL;
 import java.net.MalformedURLException;

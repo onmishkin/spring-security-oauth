@@ -16,7 +16,7 @@
 
 package org.springframework.security.oauth.common.signature;
 
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+//import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import static org.springframework.security.oauth.common.OAuthCodec.oauthEncode;
@@ -41,10 +41,12 @@ public class CoreOAuthSignatureMethodFactory implements OAuthSignatureMethodFact
   private boolean supportPlainText = false;
   private boolean supportHMAC_SHA1 = true;
   private boolean supportRSA_SHA1 = true;
-  private PasswordEncoder plainTextPasswordEncoder;
+//  private PasswordEncoder plainTextPasswordEncoder;
 
   public OAuthSignatureMethod getSignatureMethod(String methodName, SignatureSecret signatureSecret, String tokenSecret) throws UnsupportedSignatureMethodException {
     if (supportPlainText && PlainTextSignatureMethod.SIGNATURE_NAME.equals(methodName)) {
+      throw new IllegalArgumentException("Not implemented");
+/* DW
       if (!(signatureSecret instanceof SharedConsumerSecret)) {
         throw new IllegalArgumentException("Invalid secret for signature method " + methodName + ". Expected a " +
           SharedConsumerSecret.class.getName() + ", got " + (signatureSecret == null ? "null" : signatureSecret.getClass().getName()) + ".");
@@ -67,6 +69,7 @@ public class CoreOAuthSignatureMethodFactory implements OAuthSignatureMethodFact
       }
 
       return new PlainTextSignatureMethod(oauthEncode(new StringBuilder(consumerSecret).append('&').append(tokenSecret).toString()), this.plainTextPasswordEncoder, salt);
+*/
     }
     else if (supportHMAC_SHA1 && HMAC_SHA1SignatureMethod.SIGNATURE_NAME.equals(methodName)) {
       if (!(signatureSecret instanceof SharedConsumerSecret)) {
@@ -170,21 +173,23 @@ public class CoreOAuthSignatureMethodFactory implements OAuthSignatureMethodFact
     this.supportRSA_SHA1 = supportRSA_SHA1;
   }
 
-  /**
+  /* DW 
+   *
    * The password encoder to use for the plain-text password signature method.
    *
    * @return The password encoder to use for the plain-text password signature method.
-   */
   public PasswordEncoder getPlainTextPasswordEncoder() {
     return plainTextPasswordEncoder;
   }
 
-  /**
+   */
+  /* DW
+   *
    * The password encoder to use for the plain-text password signature method.
    *
    * @param plainTextPasswordEncoder The password encoder to use for the plain-text password signature method.
-   */
   public void setPlainTextPasswordEncoder(PasswordEncoder plainTextPasswordEncoder) {
     this.plainTextPasswordEncoder = plainTextPasswordEncoder;
   }
+   */
 }

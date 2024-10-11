@@ -80,7 +80,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.Filter;
+import jakarta.servlet.Filter;
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
