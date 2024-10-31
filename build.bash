@@ -1,3 +1,4 @@
+#!/bin/bash
 # Add "-DskipTests=true" to skip tests
 # Add "--fail-at-end" to continue through failures
 # Add "-e" to get stack trace

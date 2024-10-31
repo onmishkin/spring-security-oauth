@@ -33,8 +33,8 @@ import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.DefaultLoginPageConfigurer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -60,6 +60,9 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
+
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -255,14 +258,19 @@ public class ResourceServerConfigurationTests {
 			clients.inMemory().withClient("client").secret("secret").scopes("scope");
 		}
 
-		@Configuration
-		protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-			@Bean
-			public PasswordEncoder passwordEncoder() {
-				return NoOpPasswordEncoder.getInstance();
-			}
-		}
-	}
+        @Configuration
+        protected static class SecurityConfiguration {
+            @Bean
+            public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                return setupDefaultSecurityFilterChain(http);
+            }
+
+            @Bean
+            public PasswordEncoder passwordEncoder() {
+                return NoOpPasswordEncoder.getInstance();
+            }
+        }
+    }
 
 	@Configuration
 	@EnableResourceServer
@@ -281,8 +289,14 @@ public class ResourceServerConfigurationTests {
 			endpoints.pathMapping("/oauth/token", "/token");
 			endpoints.pathMapping("/oauth/authorize", "/authorize");
 		}
+
 		@Configuration
-		protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+		protected static class SecurityConfiguration {
+            @Bean
+            public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                return setupDefaultSecurityFilterChain(http);
+            }
+
 			@Bean
 			public PasswordEncoder passwordEncoder() {
 				return NoOpPasswordEncoder.getInstance();
@@ -426,4 +440,33 @@ public class ResourceServerConfigurationTests {
 		}
 	}
 
+    /* This equates with default config WebSecurityConfigurerAdapter would have generated
+     * <pre>
+     * http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+     * </pre>
+     * based on org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter.getHttp() +
+     * org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter.configure(HttpSecurity)
+     */
+    private static SecurityFilterChain setupDefaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        // @formatter:off
+        http
+            .csrf().and()
+            .addFilter(new WebAsyncManagerIntegrationFilter())
+            .exceptionHandling().and()
+            .headers().and()
+            .sessionManagement().and()
+            .securityContext().and()
+            .requestCache().and()
+            .anonymous().and()
+            .servletApi().and()
+            .apply(new DefaultLoginPageConfigurer<HttpSecurity>()).and()
+            .logout();
+        http
+            .authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin().and()
+            .httpBasic();
+        return http.build();
+    }
 }

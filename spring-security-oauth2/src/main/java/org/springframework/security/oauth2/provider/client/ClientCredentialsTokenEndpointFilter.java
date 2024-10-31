@@ -14,6 +14,7 @@ package org.springframework.security.oauth2.provider.client;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Collections;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -100,7 +101,7 @@ public class ClientCredentialsTokenEndpointFilter extends AbstractAuthentication
 			throws AuthenticationException, IOException, ServletException {
 
 		if (allowOnlyPost && !"POST".equalsIgnoreCase(request.getMethod())) {
-		    throw new HttpRequestMethodNotSupportedException(request.getMethod(), List.of("POST"));
+		    throw new HttpRequestMethodNotSupportedException(request.getMethod(), Collections.singletonList("POST"));
 		}
 
 		String clientId = request.getParameter("client_id");
